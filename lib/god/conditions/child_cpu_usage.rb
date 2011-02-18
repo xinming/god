@@ -86,8 +86,8 @@ module God
       
       
       def all_descendants(descendants, parent_id)
-        pipe = IO.popen("ps -o pid,ppid ax|grep #{parent_id}")
-        lines = pipe.readlines
+        result = `ps -o pid,ppid ax|grep #{parent_id}`
+        lines = result.split /\n/
         return if lines.size < 2
         lines.each do |line|
           parts = line.strip.split(/\s+/)
